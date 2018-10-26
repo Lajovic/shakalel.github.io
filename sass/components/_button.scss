@@ -1,0 +1,133 @@
+.btn {
+    
+    &, /* para botões */
+    &:link, /* para anchors */
+    &:visited { /* para anchors */
+
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 1.5rem 4rem;
+        display: inline-block;	
+        border-radius: 10rem;
+        font-size: $default-font-size;
+    
+        /* precisamos dessa posição relativa para o pseudo elemento (mais pra baixo
+        no código) poder ter posição absoluta */
+        position: relative;
+    
+        /* transition está aqui pq deve ficar no local inicial uma animação, isso é, 
+        antes de ela sofrer qualquer alteração. Ela seta o tempo das outras com o all,
+        creio eu. */
+        transition: all .4s;
+
+        /* botões que não são anchors ("a" tag) precisam dessas props. */
+        border: none;
+        cursor: pointer;
+    }
+
+    /*o botão sobe e cria sombra com essas propriedades*/
+    &:hover {
+
+        transform: translateY(-.3rem);
+
+        /*os valores para sombra são, respectivamente: X Y BLUR COR(RGBA)*/
+        box-shadow: 0 1rem 2rem rgba($color-black,.2);
+
+        &::after {
+
+            /*scale(2) significa q o elemento terá 2 vezes o tamanho total dele*/
+            transform: scaleX(1.4) scaleY(1.6);
+            opacity: 0;
+        }
+    }
+
+    /* Active é quando algo está pressinado com o click. */
+    /* O botão desce e a sombra diminui com essas propriedades. */
+    &:focus, /* para botões */
+    &:active {  /* para anchors */
+
+        outline: none;
+        transform: translateY(-.1rem);
+        box-shadow: 0 .5rem 1rem rgba($color-black, .2);
+    }
+
+    /* Pseudo-elemento para o efeito de botão crescendo e desaparecendo. Cria-se
+    uma cópia do botão. */
+    &::after {
+
+        /* Content é obrigatório em pseudo elementos, mesmo que ele esteja em branco.*/
+        content: "";
+
+        /* Display, aparentemente, é obrigatório tb. inline-block pq o botão original 
+        é inline-block. */
+        display: inline-block;
+
+        height:100%;
+        width: 100%;
+        border-radius: 10rem;
+
+        /* A posição absoluta procura uma posição relativa na herança. temos que setar
+        o botão original com posição relativa pra isso funcionar. */
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        transition: all .4s;
+    }
+
+    &--animated {
+
+        /* O quarto parâmetro aqui indica depois de quanto tempo a animação deve começar. */
+        animation: moveInBottom .5s ease-out .5s;
+
+        /* Essa linha faz com que o setup do 0% no keyframe seja aplicado antes da 
+        animação começar. */
+        animation-fill-mode: backwards;
+    }
+
+    &--white {
+
+        background-color: $color-white;
+        color: $color-grey-dark;
+
+        &::after {
+            background-color: $color-white;
+        }	
+    }
+
+    &--green {
+
+        background-color: $color-primary;
+        color: $color-white;
+
+        &::after {
+            background-color: $color-primary;
+        }	
+    }
+
+    &-text{
+        
+        &:link,
+        &:visited {
+            font-size: $default-font-size;
+            color: $color-primary;
+            display: inline-block;
+            text-decoration: none;
+            border-bottom: 1px solid $color-primary;
+            padding: 3px;
+            transition: all .2s;
+        }
+
+        &:hover {
+            
+            background-color: $color-primary;
+            color: $color-white;
+            box-shadow: 0 1rem 2rem rgba($color-black, .25);
+            transform: translateY(-3px);
+        }
+
+        &:active {
+            transform: translate(0);
+        }
+    }
+}

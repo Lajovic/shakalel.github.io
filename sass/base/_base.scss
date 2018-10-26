@@ -1,0 +1,61 @@
+// Implementanto a arquitetura 7-1 com sass
+// Arquivos sass parciais começam sua nomenclatura com "_" (underscore).
+
+
+/*Normalize: Reset para todos os browsers exibirem igual*/
+/*Pseudo-elementos precisam de declaração específica, eles não entram no símbolo "*" */
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;	
+	/*Faz com q as propriedades do box-sizing sejam herdadas. Por padrão box-sizing não tem
+	herança de valores. Agora todas as propriedades que não tiverem declarações específicas
+	vão herdar do box-sizing em body. Esse método deixa um pouco mais fácil lidar com alguns
+	plugins também.*/
+	box-sizing: inherit;
+}
+
+/* root font size para referência do REM */
+html {
+
+	/* Queremos que o root font size seja de 10px. Mas colocar diretamente 10px impede que o usuário
+	(as vezes com necessidades especiais) altere o tamanho do root font size da página. Acaba
+	dendo uma má prática. Por isso colocamos em porcentagem. 
+	- O padrão é 16px. Nós queremos 10px.
+		100% = 16px, 62.5% = 10px. 
+	*/
+	
+	font-size: 62.5%;	// 10/16 = 0.625
+
+
+	// Media Queries devem ser colocas em ordem decrescente para desktop-first (em max-width), 
+	// pois mais de uma delas pode ser verdadeira e o cascading ainda é aplicado. O contrário
+	// para mobile-first (em min-width).
+
+	@include responsive(tab-land) { font-size: 56.25%; }	// 1rem = 9px, 9/16 = 56.25%
+
+	@include responsive(tab-port) { font-size: 50%; }		// 1rem = 8px, 8/16 = 50%
+
+	@include responsive(big-scr) { font-size: 75%; }		// 1rem = 12px, 12/16 = 75%
+
+	
+}
+
+/*Setando configurações básicas no body para outros elementos herdarem de um só local.*/
+body {
+	
+	/* O borders e paddings não são adicionados ao total width e height. */
+	box-sizing: border-box;	
+
+	padding: 3rem;
+
+	@include responsive(tab-port) { padding: 0; }
+}
+
+/* customizando o modo de selecionar texto */
+::selection {
+
+	background-color: $color-primary;
+	color: $color-white;
+}

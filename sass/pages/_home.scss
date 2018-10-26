@@ -1,0 +1,126 @@
+// Neste partial scss file encontra-se o css específico apenas desta página.
+// Nenhuma outra, além da página home, terá esse css
+
+.section-about {
+    
+    background-color: $color-grey-light-1;
+    padding: 25rem 0;
+    margin-top: -20vh;
+
+    @include responsive(tab-land) { padding: 30rem 0 25rem 0; }
+}
+
+.section-features {
+
+    padding: 20rem 0;
+    
+    /*O gradiente é sempre aplicado no BG-image, antes da URL da img*/
+	background-image: linear-gradient(
+        to right, 
+        rgba($color-primary-light, .6), 
+        rgba($color-primary-dark, .8)), 
+    url(../img/nat-4.jpg);
+
+    /* A imagem do background fica responsiva */
+    background-size: cover;
+
+    /* Isso entorta todo o elemento pra estilizár o background */
+    transform: skewY(-7deg);
+
+    /* Retirando o gap entre os backgrounds */
+    margin-top: -12rem;
+
+    /* Isso desentorta o primeiro filho direto do elemento para que não pareça torto, ou seja,
+    a row contento todas os quadros. */
+    & > * {
+        transform: skewY(7deg);
+    }
+
+    @include responsive(tab-port) { padding: 10rem 0; }
+}
+
+.section-tours {
+
+    background-color: $color-grey-light-1;
+    padding: 25rem 0 15rem 0;
+
+    /* Retirando o gap entre os backgrounds */
+    margin-top: -12rem;
+
+    @include responsive(tab-port) { padding: 20rem 0 10rem 0; }
+}
+
+.section-stories {
+    
+    padding: 15rem 0;
+
+    /* Por causa do .bg-video que precisa de absolute */
+    position: relative;
+
+    @include responsive(tab-port) { padding: 10rem 0; }
+}
+
+.section-book {
+
+    padding: 15rem 0;
+    background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+
+    @include responsive(tab-port) { padding: 10rem 0; }
+}
+
+.book {
+    
+    border-radius: 3px;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .4);
+
+    /* Essa propriedade é, basicamente: bg-image: linear-gradiente, url(path).
+    Ou seja, um gradiente e uma imagem.
+    A mudança de cor do gradiente está definida em pontos específicos, como 0% e 50%.
+    A cor muda bruscamente do meio em diante porque aqui define-se que é branco do 0 ao 50%,
+    depois é transpartente do 50% em diante. */
+    background-image: linear-gradient(105deg, 
+        rgba($color-white, .9) 0%,
+        rgba($color-white, .9) 50%,
+        transparent 50%), 
+        url(../img/nat-10.jpg);
+    
+    /* Essa propriedade setada em 100% faz quase o mesmo que "cover".
+    Aqui ele cobre a imagem seguindo o eixo X, cover cobre seguindo o eixo Y. */
+    background-size: 100%;
+
+    @include responsive(tab-land) {
+
+        background-image: linear-gradient(105deg, 
+        rgba($color-white, .9) 0%,
+        rgba($color-white, .9) 65%,
+        transparent 65%), 
+        url(../img/nat-10.jpg);
+
+        background-size: cover;
+    }
+
+    @include responsive(tab-port) {
+
+        background-image: linear-gradient(to right, 
+        rgba($color-white, .9) 0%,
+        rgba($color-white, .9) 100%),
+        url(../img/nat-10.jpg);
+    }
+
+
+    &__form {
+
+        width: 50%;
+        padding: 6rem;
+
+        @include responsive(tab-land) {
+         
+            width: 65%;
+        }
+
+        @include responsive(tab-port) {
+         
+            width: 100%;
+        }
+    }
+}

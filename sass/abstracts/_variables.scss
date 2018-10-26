@@ -1,0 +1,39 @@
+// COLORS
+$color-primary: #55c57a;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+
+$color-secondary-light: #ffb900;
+$color-secondary-dark: #ff7730;
+
+$color-tertiary-light: #2998ff;
+$color-tertiary-dark: #5643fa;
+
+$color-grey-light-1: #f7f7f7;
+$color-grey-light-2: #eee;
+
+$color-grey-dark: #777;
+$color-grey-dark-2: #999;
+$color-grey-dark-3: #333;
+
+$color-white: #fff;
+$color-black: #000;
+
+// FONT
+$default-font-size: 1.6rem;
+
+// GRID
+$grid-width: 114rem;
+$grid-width-medium: 50rem;
+$gutter-vertical: 8rem;
+$gutter-vertical-small: 6rem;
+$gutter-horizontal: 6rem;
+
+// WIDTHS
+$phone-w: 37em;         // 600px / 16px = 37.5em
+$tab-port-w: 56.25em;   // 900px / 16px = 56.25em
+$tab-land-w: 75em;      // 1200px / 16px = 75em
+$big-scr-w: 112.5em;    // 1800px / 16px = 112.5em
+
+// PIXEL DENSITY
+$high-res: 192dpi;  // Apple retina display (2x res). 192dpi é 192 dots per inch, que é a resolução de retina da apple. High-res.

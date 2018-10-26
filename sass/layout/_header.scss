@@ -1,0 +1,95 @@
+.header {
+    
+    position: relative;
+	
+	/*vh é Viewport Height, uma unidade de medida que diz, em porcentagem,
+	este elemento deve ter (no caso abaixo) 95% da altura do viewport.*/
+	height: 85vh;
+	
+	/*O gradiente é sempre aplicado no BG-image, antes da URL da img*/
+	background-image: linear-gradient(
+			to right, 
+			rgba($color-primary-light, .6), 
+			rgba($color-primary-dark, .8)), 
+		url(../img/hero-small.jpg);
+	
+	/* Cover faz com que o width do background tente sempre se adaptar
+	ao tamanho da tela*/
+	background-size: cover;
+	
+	/* BG position seta o pivot de redimensionamento da imagem qdo ela precisa
+	aumentar ou diminuir. Top fica preso, ou bot, ou center e tudo se redimensiona
+	ao redor*/
+	background-position: top;	
+	
+    
+    /* Graceful degradation */ 
+    @supports (-webkit-clip-path: polygon(0 0))
+            or (clip-path: polygon(0 0)) {
+
+        height: 95vh;
+        
+        /* Aqui definimos os quatro pontos do polígono para setar a máscara do elemento
+        define-se X e Y respectivamente, 4 vezes represetando os 4 pontos. X é horizontal, 
+        Y é vertical*/
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    }
+
+    @include responsive(tab-land) {
+
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
+	    clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
+    }
+
+    @include responsive(tab-port) {
+
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+	    clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+    }
+    
+
+    /* A img hero-small tem 1200px. Quero mostrá-la para widths de até 1200px.
+    Aqui eu tenho duas condições:
+    1) Se a tela for 2x, então eu mostro a hero-small até de 600px. Pq high-res tem 2px físicos para cada 1px virtual. Depois disso eu mostro a hero versão grande.
+    2) Caso tenha mais de 1200px, exibe a imagem grande. */
+    @media only screen and (min-width: $phone-w) and (min-resolution: $high-res),
+           only screen and (min-width: $phone-w) and (-webkit-min-device-pixel-ratio: 2), /* O mesmo q o de cima, mas pro safari */
+           only screen and (min-width: $tab-land-w) {
+
+        background-image: linear-gradient(
+			to right, 
+			rgba($color-primary-light, .6), 
+			rgba($color-primary-dark, .8)), 
+		url(../img/hero.jpg);
+    }        
+
+    &__logo-box {
+
+        position: absolute;
+        top: 4rem;
+        left: 4rem;
+    }
+
+    &__logo {
+        /*especificando a altura da imagem o browser já se encarrega de dar resize 
+        no resto.*/
+        height: 3.5rem;
+    }
+
+    &__text-box {
+        position: absolute;
+        
+        /*O pivot point de top e left fica, por padrão, no canto esquerdo superior do
+        div, então ESTE PONTO está centralizado, o div começa a se desenhar do meio da
+        tela. Transform, logo abaixo, corrige isso.*/
+        top: 40%;
+        left: 50%;
+        
+        /*transform corrige o pivot point do div (ou o move por inteiro, não tenho ctz)*/
+        transform: translate(-50%, -50%);
+    
+        /*centraliza o texto dentro deste container*/
+        text-align: center;
+    }
+}

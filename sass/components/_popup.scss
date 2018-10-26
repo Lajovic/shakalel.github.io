@@ -1,0 +1,123 @@
+.popup {
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba($color-black, .8);
+    z-index: 4;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;    
+    
+    /* Técnica graceful degradation: aplica um bloco de código caso o browser suporte uma 
+    propriedade. */
+    @supports(-webkit-backdrop-filter: blur(10px)) 
+              or (backdrop-filter: blur(10px)) {
+
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        background-color: rgba($color-black, .3);
+    }
+    
+    &__content {
+
+        @include center_element;     
+
+        width: 75%;
+        background-color: $color-white;
+        box-shadow: 0 2rem 4rem rgba($color-black, .2);   
+        border-radius: 3px;   
+        overflow: hidden;  
+
+        /* Temos um transform aqui dentro do mixin lá em cima. Precisamos de um segundo. O 
+        problema é que eles se sobrescreveriam, mesmo que diferentes. Portanto, para evitar
+        que ele desapareça, precisamos reescrever o transform do mixin aqui também. */
+        transform: translate(-50%, -50%) scale(0);
+        transition: all .4s;
+    }   
+
+    &__right {
+
+        width: 66.7%;
+        padding: 3rem 5rem;
+        
+        /* "display tablecell" simula uma tabela, consequentemente dando a mesma altura para ambas
+        as células dentro dela. Uma vez que elas tenham a mesma altura, posso centralizar o texto
+        verticalmente na célula. */
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    &__left {
+
+        width: 33.3%;
+        display: table-cell;
+    }
+
+    &__img {
+
+        /* Aqui o "display block" faz com que não haja espaço abaixo de cada imagem e elas 
+        fiquem uma colada na outra. */
+        display: block;
+        width: 100%;
+    }
+
+    &__text {
+
+        font-size: 1.4rem;
+        margin-bottom: 4rem;
+
+        -moz-column-count: 2;
+        -moz-column-gap: 4rem;
+        -moz-column-rule: 1px solid $color-grey-light-2;
+
+        column-count: 2;
+        column-gap: 4rem;
+        column-rule: 1px solid $color-grey-light-2;
+
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+    }
+
+    &__close {        
+
+        &:link,
+        &:visited {
+
+            color: $color-grey-dark;
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            font-size: 3rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all .2s;
+
+            /* Isso diminui a altura da linha do texto. Normalmente ela é mais alta do que larga e
+            neste caso, estava atrapalhando o posicionamento do botão "X" */
+            line-height: 0;
+        }
+
+        &:hover {
+
+            color: $color-primary;
+        }
+    }
+    
+    /* Popup aberto */
+    &:target {
+
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &:target &__content {
+
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+}

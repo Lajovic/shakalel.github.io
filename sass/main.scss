@@ -1,0 +1,77 @@
+// COMPILAÇÃO DO SASS
+// 1- Precisamos do npm
+// 2- Usamos o npm para baixar os pacotes do sass para dentro da pasta do site
+// 3- Utilizamos o comando abaixo no cmd:
+//      npm run nome_do_script
+//      sendo que o nome do script está no arquivo .json
+//      nesse caso: npm run compile:sass
+
+
+
+/*NOTA: O CSS foi organizado de acordo com a nomenclatura BEM, que significa:
+Block Element Modifier
+
+- Block: Algo que faz sentido por si só se transportássemos para outro local, como um botão
+- Element: Um segmento de um block, como o container do logo, por exemplo
+- Modifier: Um modificador do Block ou do elemento, como um botão amarelo, por exemplo
+
+Sintaxe: 
+block__element--modifier
+
+Sempre com double underline ou double dash
+*/
+
+// Implementando a arquitetura css 7-1 com sass
+// não é necessário no import dos arquivos o "_" (underscore) inicial.
+
+// Ao todo são 7 pastas com arquivos parciais e 1 arquivo main que importa
+// todas elas.
+
+// As pastas são:
+
+// base
+// components
+// layout
+// pages
+// themes
+// abstracts
+// vendors
+
+// NOTA: nem sempre é necessária a criação de todas as pastas. Depende da complexidade do
+// projeto.
+
+
+@import "abstracts/functions";
+@import "abstracts/mixins";
+@import "abstracts/variables";
+
+@import "base/base";
+@import "base/animations";
+@import "base/typography";
+@import "base/utilities";
+
+@import "components/button";
+@import "components/composition";
+@import "components/feature-box";
+@import "components/card";
+@import "components/story";
+@import "components/bg-video";
+@import "components/form";
+@import "components/popup";
+
+@import "layout/header";
+@import "layout/grid";
+@import "layout/footer";
+@import "layout/navigation";
+
+@import "pages/home";
+
+
+
+
+
+
+
+
+
+

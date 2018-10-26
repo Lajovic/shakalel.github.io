@@ -1,0 +1,24 @@
+.bg-video {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    opacity: .15;
+
+    /* Corta a parte do vídeo que transborda o elemento */
+    overflow: hidden;
+
+    &__content {
+
+        /* Faz o video caber no container pai */
+        height: 100%;
+        width: 100%;
+
+        /* Propriedade parecida com o bg-size: cover, faz o video caber aí dentro. */
+        object-fit: cover;
+        
+    }
+}

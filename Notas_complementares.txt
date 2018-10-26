@@ -1,0 +1,24 @@
+Para criar o arquivo .json, ou baixar as dependencias caso já exista um arquivo .json:
+Após baixar o npm e instalar, digite no cmd de dentro da pasta do site: "npm init"
+
+Para instalar o live-server:
+Com o npm instalado, digite no cmd: "npm install live-server -g"
+	Nota: "-g" significa instalação global, ou seja, os pacotes não vão para a pasta do site, podem ser usadas
+	em quaisquer lugares.
+Depois, para colocá-lo em ação, digite no cmd de dentro da pasta do site: "live-server"
+
+Para baixar os pacotes do sass:
+Com o npm instalado, digite no cmd de dentro da pasta do site: "npm install node-sass --save-dev"
+	Nota: "--save-dev" vai incluir a dependência para desenvolvedor dos pacotes node-sass no arquivo .json
+	Caso quiséssemos apenas uma dependência de usuário, como jquery por exemplo, seria apenas "--save".
+
+Para preparar o .json para o sass ser compilado:
+Na seção "Scripts" digite com aspas: "compile:sass": "node-sass pasta/arq_origem.scss pasta/arq_destino.css -w"
+	Nota: o "-w" significa "watching". Faz com que a compilação aconteça sempre que houver uma mudança no arquivo 
+	de origem. É possível executar apenas uma vez o script se retirarmos o "-w".
+
+Para compilar o sass:
+Com o npm instalado, digite no cmd de dentro da pasta do site: "npm run "nome_script". 
+Exemplo: "npm run compile:sass".
+
+

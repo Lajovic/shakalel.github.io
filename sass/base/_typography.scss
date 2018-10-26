@@ -1,0 +1,124 @@
+body {
+
+	font-family: "Lato", sans-serif;
+    
+    /* Espessura da fonte. O quão "negritada" ela fica*/
+	font-weight: 400;
+    
+    /* line-height é o espaçamento entre uma linha e outra.
+	1.7 significa que terá 1.7 vezes o tamanho da fonte. */
+	line-height: 1.7;
+	color: $color-grey-dark;	
+}
+
+.heading-primary {
+
+    color: $color-white;
+    text-transform: uppercase;    
+    margin-bottom: 6rem;
+
+    /* Aparentemente há um tremor no final da animação em alguns casos e essa propriedade
+    teoricamente o conserta. Ela serve, na verdade, para tirar a visibilidade das costas de
+    um elemento, não daria para usá-la se quiséssemos girar o elemento 180 graus, por exemplo. */
+    backface-visibility: hidden;
+
+
+    &--main {            
+        
+        font-size: 6rem;
+        font-weight: 400;
+
+        /* Block serviu para separar cada span numa linha, pois cada block ocupa 100% 
+        da width. */
+        display: block;       
+        
+        /* Uma animação precisa desses duas propriedades pra funcionar: */
+        animation-name: moveInLeft;
+        animation-duration: 1s;	
+        
+        /* Essa propriedade muda o flow da animação (acho que é a curva de animação. */
+        animation-timing-function: ease-out;
+        
+        /* Espaço entre as letras. */
+        letter-spacing: 3.5rem;
+
+        @include responsive(phone) {
+            letter-spacing: 1rem;
+            font-size: 5rem;
+        }
+    }	
+    
+    &--second {
+
+        font-size: 2rem;
+        font-weight: 700;
+
+        /* Block serviu para separar cada span numa linha, pois um block ocupa 100% 
+        da width. */
+        display: block;        
+        
+        /*ajustado manualmente pelo f12 do chrome até se alinhar com a palavra 
+        grande em cima*/
+        letter-spacing: 1.75rem;
+        
+        /*Atalho para setar todas as 3 propriedades de animação na mesma linha:*/
+        animation: moveInRight 1s ease-out;
+
+        @include responsive(phone) {
+            font-size: 1.5rem;
+            letter-spacing: .5rem;
+        }
+    }
+}
+    
+
+.heading-secondary {
+
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: .2rem;
+
+    // gradiente de fundo
+    background-image: linear-gradient(to right,$color-primary-light, $color-primary-dark);
+    
+    // corta o background de acordo com o texto
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    // seta a cor do texto como transparente, então dá pra ver o recorte
+    color:transparent;
+
+    // faz com q a transição seja smooth
+    transition: all .2s;
+
+    @include responsive(tab-port) {
+
+        font-size: 3rem;
+    }
+
+    @include responsive(phone) {
+
+        font-size: 2.5rem;
+    }
+
+    &:hover {
+        transform: skewY(2deg) skewX(15deg) scale(1.1);
+        text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+    }
+}
+
+.heading-tertiary {
+    font-size: $default-font-size;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+
+.paragraph {
+    font-size: $default-font-size;
+
+    &:not(:last-child){
+        margin-bottom: 3rem;
+    }
+}

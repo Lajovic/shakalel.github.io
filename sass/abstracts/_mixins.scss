@@ -1,0 +1,66 @@
+// Mixins são pedaços de códigos que podem ser reutilizados múltiplas vezes.
+// Para incluir um mixin no código, usamos: @include nome_do_mixin.
+
+// este pedaço de código limpa o "float: left;". 
+@mixin clearfix {
+    &::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin center_element {
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+// CONTROLE DE MEDIA QUERY
+/*
+
+ *TAMANHO*        *DESCRICAO*       *ARGUMENTO*
+0 - 600px:      celular             phone
+600 - 900px:    tablet portrait     tab-port
+900 - 1200px:   tablet landscape    tab-land
+1200 - 1800px:  normal styles       --
+1800px+:        monitor gigante     big-scr
+
+ 
+- Ordem de revisão otimizada:
+Base + typography > general layout + grid > page layout > components
+
+*/
+
+@mixin responsive($breakpoint) {
+    
+    // Por conta da usabilidade de o usuário poder alterar o tamanho da fonte padrão no browser,
+    // é uma boa prática não chumbar media queries em pixels.
+
+    // NOTA 1
+    // Em media queries, REM e EM não são afetados pelo setting do código. Eles sempre seguem o
+    // tamanho padrão setado ou não pelo usuário no browser. Intocado, o valor é de 16px.
+    
+    // NOTA 2
+    // Depois de alguns testes na comunidade, notou-se que EM funciona melhor do que REM para 
+    // setar media queries. Ambos, não podendo ser afetados pelo código, tem o valor padrão de
+    // 16px.
+    
+    // @content insere aqui todo o conteúdo das chaves pertencentes à chamada da mixing.
+    @if $breakpoint == phone {
+        // "only screen é uma boa prática para o media query se aplicar apenas em telas. Assim ela não se aplica a pessoas tentando imprimir a página, por exemplo.
+        @media only screen and (max-width: $phone-w) { @content };          // 600px
+    }        
+    @if $breakpoint == tab-port {
+        @media only screen and (max-width: $tab-port-w) { @content };       // 900px
+    } 
+    @if $breakpoint == tab-land {
+        @media only screen and (max-width: $tab-land-w) { @content };       // 1200px
+    }
+    @if $breakpoint == big-scr {
+        @media only screen and (min-width: $big-scr-w) { @content };        // 1800px
+    }   
+}

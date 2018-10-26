@@ -1,0 +1,134 @@
+.story {
+
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black, .1);
+    background-color: rgba($color-white, .6);
+    border-radius: 3px;
+    padding: 6rem;
+    font-size: $default-font-size;    
+    transform: skewX(-12deg);
+
+    /* ver propriedade "&__shape { trasmform } abaixo. */
+    padding-left: 9rem;
+
+    @include responsive(tab-port) {
+
+        width: 100%;
+        padding: 4rem;
+        padding-left: 7rem;
+    }
+
+    @include responsive(phone) {
+
+        transform: skewX(0);
+    }
+
+    /* Apesar de parecer que o transform abaixo funcionaria em todas as propriedades filhas,
+    ele não funciona na imagem. Isso porque a imagem já tem um transform próprio que toma
+    precedência por especificidade, então temos que dar skew lá embaixo no shape também. */
+    & > * {
+        transform: skewX(12deg);
+
+        @include responsive(phone) {
+
+            transform: skewX(0);
+        }
+    }
+
+    &__shape {
+        
+        border-radius: 50%;   
+        overflow: hidden;
+
+        /* Visando afastar do texto a imagem circular, o melhor jeito não é usar margens, mas, 
+        sim, usar transform. Entretanto, fazendo isso nós transbordamos o limite esquerdo do 
+        container dando uma impressão a esquerda tem menos margem q a direita, então temos de 
+        corrigir o ".story" com um padding-left pra aumentá-lo. */
+        transform: translateX(-3rem) skewX(12deg);
+
+        /* Tem de colocar por causa do absolute lá no caption. */
+        position: relative;
+
+        /* Requerimentos para o shape-outside funcionar: */
+        float: left;
+        width: 13rem;
+        height: 13rem;     
+
+        
+        /* gracefully degradation */
+        @supports (-webkit-shape-clip-path: circle(50% at 50% 50%)) 
+                  or (clip-path: circle(50% at 50% 50%)) {
+
+            width: 15rem;
+            height: 15rem;
+
+            /* shape-outside determina como os outros elementos se comportam perto dele.
+            Nesse caso, o texto se adapta em volta de um circulo. Caso não tivesse essa propriedade,
+            o texto ficaria quadrado ao lado deste círculo. 
+            
+            sintaxe shape-outside: circle(RAIO at Position_X Posistion_Y) 
+            
+            Ele ainda tem requerimentos: ele só funciona se o elemento tiver float, width e height. */
+            -webkit-shape-outside: circle(50% at 50% 50%);
+            shape-outside: circle(50% at 50% 50%);  
+            
+            /* O clip-path corta a imagem para parecer um círculo. */
+            -webkit-shape-clip-path: circle(50% at 50% 50%);
+            clip-path: circle(50% at 50% 50%);
+
+            border-radius: none;
+        }
+
+        @include responsive(phone) {
+
+            transform: translateX(-3rem) skewX(0);
+        }
+    }   
+
+    &__image {
+
+        height: 15rem;
+        
+        /* Ajustando a imagem pra moça ma foto ficar centralizada. */
+        transform: translateX(-4rem) scale(1.4);
+        transition: all .5s;
+    }
+
+    &__caption {
+        text-align: center;
+        color: $color-white;   
+        text-transform: uppercase;   
+        font-size: 1.7rem;  
+
+        /* Para o texto flutuar centralizado na imagem. */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        /* Ajustando o pivot. Pra centralizar seria "50%, 50%", mas queremos que o texto comece
+        embaixo e vá subindo na animação do hover, então 20% deixa ele lá embaixo. */
+        transform: translate(-50%, 20%);   
+
+        /* Por algum motivo, bem no final da animação do texto subindo, de maneira quase 
+        imperceptível, o dá um glitchzinho no final movendo 1px pro lado. Essa propriedade corrige
+        isso, não faço ideia do porque. */
+        backface-visibility: hidden;
+
+        opacity: 0;
+        transition: all .5s;
+    }
+
+    &:hover &__caption {
+
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    &:hover &__image {
+        /* Zoom out */
+        transform: translateX(-4rem) scale(1);
+        
+        filter: blur(3px) brightness(80%);
+    }
+}

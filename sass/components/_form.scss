@@ -1,0 +1,133 @@
+.form {
+
+    &__group:not(:last-child) {
+
+        margin-bottom: 2rem;
+    }
+
+    &__input {
+
+        /* Formulários, por padrão, não herdam o settings da fonte. Então
+        setamos manualmente aqui. */
+        font-family: inherit;
+        color: inherit;
+        font-size: 1.5rem;
+        
+        padding: 1.5rem 2rem;
+        border-radius: 2px;
+        background-color: rgba($color-white, .5);
+        border: none;
+        width: 90%;
+
+        /* block faz com que o campo de input tenha sua própria linha, o figcaption vai pra
+        linha debaixo */
+        display: block;
+
+        /* Quando clicamos no input aparece uma borda verde (ver input:hover abaixo). Para que
+        os elementos abaixo do clicado não se movam devido à borda verde criada, setamos uma 
+        transparente antes. */
+        border-bottom: 3px solid transparent;
+
+        &:focus {
+            
+            /* Retira a borda azulada do focus */
+            outline: none;
+
+            /* Por acessibilidade, para pessoas que usam não usam o mouse, apenas o teclado, precisamos
+            dar algum tipo de referência de que esse campo está focado (uma vez q retiramos o focus)
+            então setamos: */
+            box-shadow: 0 1rem 2rem rgba($color-black, .1);
+
+            /* Borda verde que aparece ao clicar */
+            border-bottom: 3px solid $color-primary;
+        }
+
+        /* Seletor para quando o campo for focado e for inválido pela validação html */
+        &:focus:invalid {
+
+            border-bottom: 3px solid $color-secondary-dark;
+        }
+        
+        /* Propriedade para estilizar o input placeholder */
+        &::-webkit-input-placeholder {
+
+            color: $color-grey-dark-2;
+        }
+    }
+
+    &__label {
+
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-left: 2rem;
+        margin-top: .7rem;
+        display: block;
+        transform: translateY(-8.5rem);
+        transition: all .3s;
+        
+    }
+
+    /* Enquanto o placeholder for mostrado, estilize o &__label que vem imediatamente depois. */
+    &__input:placeholder-shown + &__label {
+
+        font-size: $default-font-size;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-4rem);
+    }
+
+    &__radio-group {
+
+        width: 49%;
+        display: inline-block;    
+        
+        @include responsive(tab-port) {
+
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__radio-label {
+
+        font-size: $default-font-size;
+        cursor: pointer;
+        position: relative;
+        padding-left: 4.5rem;
+    }
+
+    &__radio-button {
+
+        height: 3rem;
+        width: 3rem;
+        border: 5px solid $color-primary;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: -.4;        
+
+        /* bolinha do meio da radio */
+        &::after {
+            
+            content: "";            
+            @include center_element;
+            height: 1.3rem;
+            width: 1.3rem;
+            border-radius: 50%;
+            background-color: $color-primary;
+            opacity: 0;            
+            transition: opacity .2s;
+        }
+    }
+
+    &__radio-input {
+
+        display: none;
+    }
+
+    &__radio-input:checked + &__radio-label &__radio-button::after {
+
+        opacity: 1;
+    }
+}
