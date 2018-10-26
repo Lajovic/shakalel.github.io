@@ -1,1 +1,0 @@
-# shakalel.github.io
